@@ -12,7 +12,7 @@ namespace Microsoft.Identity.Web
     public static class AccountExtensions
     {
         /// <summary>
-        /// Creates the <see cref="ClaimsPrincipal"/> from the values found 
+        /// Creates an instance of <see cref="ClaimsPrincipal"/> from the values found 
         /// in an <see cref="IAccount"/>
         /// </summary>
         /// <param name="account">The IAccount instance</param>

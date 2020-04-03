@@ -16,10 +16,19 @@ using System.Linq;
 namespace Microsoft.Identity.Web
 {
     /// <summary>
-    /// Filter used on a controller action to trigger incremental consent.
+    /// Filter used on a Web app controller action to trigger incremental consent
+    /// and handle conditional access.
     /// </summary>
     /// <example>
-    /// The following controller action will trigger
+    /// When a user signs-in for the first time to a Web app, they are asked to consent
+    /// to the default permissions. Later, when controller actions that want to call a Web
+    /// api request more scopes, the user might have a consent. Also some Web APIs require conditional
+    /// access, for isntance the user might need to perform multiple factor authentication. In both cases
+    /// the user need to be presented a consent string again, which means ASP.NET Core needs to challenge
+    /// the user.
+    /// 
+    /// On the following controller, this attribute ensures that, if a conditional
+    /// access or incremental consent is needed, the scope "Mail.Send" is presented to the user. 
     /// <code>
     /// [AuthorizeForScopes(Scopes = new[] {"Mail.Send"})]
     /// public async Task&lt;IActionResult&gt; SendEmail()
@@ -27,6 +36,15 @@ namespace Microsoft.Identity.Web
     /// }
     /// </code>
     /// </example>
+    /// <remarks>There are two exclusive ways of specifying the scopes:
+    /// <list type="bullet">
+    /// <item>hardcoded in the code, by using the <see cref="Scopes"/> attribute</item>
+    /// <item>by configuation, which enables configuration of Web APIS. 
+    /// In that case, the property in the configuration is then specified through the 
+    /// <see cref="ScopeKeySection"/> property describing the fully qualified name of the
+    /// configuration item containing the scopes (for instance: "TodoList: TodoListScopes" if
+    /// a configuration property named "TodoListScopes" exists in the section "TodoList"</item>
+    /// </list></remarks>
     public class AuthorizeForScopesAttribute : ExceptionFilterAttribute
     {
         /// <summary>
@@ -35,7 +53,25 @@ namespace Microsoft.Identity.Web
         public string[] Scopes { get; set; }
 
         /// <summary>
-        /// Key section on the configuration file that holds the scope value
+        /// Fully qualified key (separated by ':') of the property in the configuration file 
+        /// that holds the scopes value. The scopes are themselves separated by spaces.
+        /// <example>
+        /// If the configuration file contains:
+        /// <code>
+        ///  "TodoList": {
+        ///    "TodoListScope": "api://a4c2469b-cf84-4145-8f5f-cb7bacf814bc/access_as_user",
+        ///    "TodoListBaseAddress": "https://localhost:44351"
+        ///  },
+        /// </code>
+        /// 
+        /// The attribute on the controller can be:
+        /// <code>
+        /// [AuthorizeForScopes(ScopeKeySection = "TodoList:TodoListScope")]
+        /// public async Task&lt;IActionResult&gt; DoSomethingCallingWebApi()
+        /// {
+        /// }
+        /// </code>
+        /// </example>
         /// </summary>
         public string ScopeKeySection { get; set; }
 

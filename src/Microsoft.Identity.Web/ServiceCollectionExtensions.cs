@@ -6,9 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Microsoft.Identity.Web
 {
     /// <summary>
-    /// Extensions for IServiceCollection for startup initialization of Web APIs.
+    /// Extensions methods for <see cref="IServiceCollection"/> used in the startup initialization 
+    /// of Web APIs.
     /// </summary>
-    public static class ServiceCollectionExtensions
+    internal static class ServiceCollectionExtensions
     {
         /// <summary>
         /// Add the token acquisition service.

@@ -7,7 +7,8 @@ using System.Security.Claims;
 namespace Microsoft.Identity.Web
 {
     /// <summary>
-    /// Extensions around ClaimsPrincipal.
+    /// Extension methods on <see cref="ClaimsPrincipal"/>, computing claims or
+    /// combinaison of claims needed in Web Apis and Web APIs
     /// </summary>
     public static class ClaimsPrincipalExtensions
     {
@@ -40,7 +41,7 @@ namespace Microsoft.Identity.Web
         }
 
         /// <summary>
-        /// Gets the unique object ID associated with the <see cref="ClaimsPrincipal"/>
+        /// Gets the unique Azure AD object ID associated with the <see cref="ClaimsPrincipal"/>
         /// </summary>
         /// <param name="claimsPrincipal">the <see cref="ClaimsPrincipal"/> from which to retrieve the unique object ID</param>
         /// <remarks>This method returns the object ID both in case the developer has enabled or not claims mapping</remarks>
@@ -101,7 +102,8 @@ namespace Microsoft.Identity.Web
         }
 
         /// <summary>
-        /// Get the display name for the signed-in user, from the <see cref="ClaimsPrincipal"/>
+        /// Get the display name for the signed-in user, from the <see cref="ClaimsPrincipal"/>. This method
+        /// gives a display name which is robust of the version of Azure AD protocol used.
         /// </summary>
         /// <param name="claimsPrincipal">Claims about the user/account</param>
         /// <returns>A string containing the display name for the user, as determined by Azure AD (v1.0) and Microsoft identity platform (v2.0) tokens,

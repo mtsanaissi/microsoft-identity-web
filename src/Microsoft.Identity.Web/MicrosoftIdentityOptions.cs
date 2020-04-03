@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 namespace Microsoft.Identity.Web
 {
     /// <summary>
-    /// Options for configuring authentication using Azure Active Directory. It has both AAD and B2C configuration attributes
+    /// Options for configuring authentication using Azure Active Directory (Microsoft identity platform). 
+    /// It has both AAD and B2C configuration attributes
     /// </summary>
     public class MicrosoftIdentityOptions : OpenIdConnectOptions
     {

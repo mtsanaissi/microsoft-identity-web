@@ -68,6 +68,8 @@ namespace Microsoft.Identity.Web
         /// <param name="tenantId">Enables to override the tenant/account for the same identity. This is useful in the 
         /// cases where a given account is guest in other tenants, and you want to acquire tokens for a specific tenant</param>
         /// <returns>An access token to call on behalf of the user, the downstream API characterized by its scopes</returns>
+        /// <remarks>This method abstracts out the underlying authentication flows. It acquires a token silently if
+        /// possible, or otherwise uses other flows (like the On behalf of flow in the case of Web APIS)</remarks>
         Task<string> GetAccessTokenForUserAsync(IEnumerable<string> scopes, string tenantId = null);
 
         /// <summary>

@@ -11,7 +11,7 @@ namespace Microsoft.Identity.Web
     public static class ClaimsPrincipalFactory
     {
         /// <summary>
-        /// Instantiate a ClaimsPrincipal from an account objectId and tenantId. This can
+        /// Instantiate a <see cref="ClaimsPrincipal"/> from an account objectId and tenantId. This can
         /// be useful when the Web app subscribes to another service on behalf of the user
         /// and then is called back by a notification where the user is identified by his tenant
         /// id and object id (like in Microsoft Graph Web Hooks)

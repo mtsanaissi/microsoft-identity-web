@@ -7,6 +7,9 @@ using System;
 
 namespace Microsoft.Identity.Web
 {
+    /// <summary>
+    /// Extention methods to handle the SameSite issue.
+    /// </summary>
     public static class CookiePolicyOptionsExtensions
     {
         /// <summary>
