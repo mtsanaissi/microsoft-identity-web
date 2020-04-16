@@ -141,8 +141,8 @@ namespace Microsoft.Identity.Web
         /// <summary>
         /// Ensures that the authority is a v2.0 authority
         /// </summary>
-        /// <param name="options">Jwt bearer options read from the config file
-        /// or set by the developper, for which we want to ensure the authority
+        /// <param name="options"><see cref="JwtBearerOptions"/> read from the config file
+        /// or set by the developer, for which we want to ensure the authority
         /// is a v2.0 authority</param>
         internal static void EnsureAuthorityIsV2_0(JwtBearerOptions options)
         {
@@ -157,11 +157,12 @@ namespace Microsoft.Identity.Web
         /// as a valid audience (this is the default App ID URL in the app registration
         /// portal)
         /// </summary>
-        /// <param name="options">Jwt bearer options for which to ensure that
+        /// <param name="options"><see cref="JwtBearerOptions"/> for which to ensure that
         /// api://GUID is a valid audience</param>
         internal static void EnsureValidAudiencesContainsApiGuidIfGuidProvided(JwtBearerOptions options, MicrosoftIdentityOptions msIdentityOptions)
         {
-            var validAudiences = new List<string>();
+            options.TokenValidationParameters.ValidAudiences ??= new List<string>();
+            var validAudiences = new List<string>(options.TokenValidationParameters.ValidAudiences);
             if (!string.IsNullOrWhiteSpace(options.Audience))
             {
                 validAudiences.Add(options.Audience);
